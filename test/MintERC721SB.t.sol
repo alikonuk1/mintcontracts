@@ -2,11 +2,11 @@
 pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
-import "src/MintERC20SB.sol";
-import "sirius/tokens/ERC20SB.sol";
+import "src/MintERC721SB.sol";
+import "sirius/tokens/ERC721SB.sol";
 
-contract MintERC20SBTest is Test {
-    MintERC20SB public mintERC20SB;
+contract MintERC721SBTest is Test {
+    MintERC721SB public mintERC721SB;
 
     address internal factoryOwner;
     address internal contractOwner;
@@ -18,28 +18,28 @@ contract MintERC20SBTest is Test {
         recipient = address(0xB0B);
 
         vm.startPrank(factoryOwner);
-        mintERC20SB = new MintERC20SB("TestToken", "TEST", 18, address(contractOwner));
+        mintERC721SB = new MintERC721SB("TestToken", "TEST", "https://google.com", address(contractOwner));
         vm.stopPrank();
     }
 
     function test_OwnerMint() public {
         vm.startPrank(contractOwner);
         emit log_string("Recipient balance before mint:");
-        emit log_uint(mintERC20SB.balanceOf(address(recipient)));
-        mintERC20SB.mint(address(recipient), 100e18);
+        emit log_uint(mintERC721SB.balanceOf(address(recipient)));
+        mintERC721SB.mintTo(address(recipient));
         emit log_string("Recipient balance after mint:");
-        emit log_uint(mintERC20SB.balanceOf(address(recipient)));
+        emit log_uint(mintERC721SB.balanceOf(address(recipient)));
         vm.stopPrank();
-        assertEq(mintERC20SB.balanceOf(address(recipient)), 100e18);
+        assertEq(mintERC721SB.balanceOf(address(recipient)), 1);
     }
 
     function testFail_NotOwnerMint() public {
         vm.startPrank(factoryOwner);
         emit log_string("Recipient balance before mint:");
-        emit log_uint(mintERC20SB.balanceOf(address(recipient)));
-        mintERC20SB.mint(address(recipient), 100e18);
+        emit log_uint(mintERC721SB.balanceOf(address(recipient)));
+        mintERC721SB.mintTo(address(recipient));
         emit log_string("Recipient balance after mint:");
-        emit log_uint(mintERC20SB.balanceOf(address(recipient)));
+        emit log_uint(mintERC721SB.balanceOf(address(recipient)));
         vm.stopPrank();
     }
 }

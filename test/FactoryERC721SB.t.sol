@@ -21,9 +21,9 @@ contract FactoryERC721SBTest is Test {
         vm.stopPrank();
     }
 
-    function testDeployMintERC721SBContract() public {
+    function test_DeployMintERC721SBContract() public {
         vm.startPrank(contractOwner);
-        factoryERC721SB.buildERC721SB("testToken", "TEST", "https://google.com");
+        factoryERC721SB.buildERC721SB("testToken", "TEST", "https://google.com", address(contractOwner));
         vm.stopPrank();
         assertTrue(true);
     }

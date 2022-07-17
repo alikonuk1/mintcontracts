@@ -12,9 +12,10 @@ contract FactoryERC721SB {
     function buildERC721SB(
         string memory _name, 
         string memory _symbol, 
-        string memory _baseURI
+        string memory _baseURI,
+        address _owner
         ) public payable {
-        MintERC721SB e7 = new MintERC721SB(_name, _symbol, _baseURI);
+        MintERC721SB e7 = new MintERC721SB(_name, _symbol, _baseURI, _owner);
         console.log("ERC721SB contract:", address(e7));
         emit NewERC721SB(_name, _symbol, address(e7));
     }

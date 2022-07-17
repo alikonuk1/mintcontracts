@@ -21,9 +21,9 @@ contract FactoryERC20SBTest is Test {
         vm.stopPrank();
     }
 
-    function testDeployMintERC20SBContract() public {
+    function test_DeployMintERC20SBContract() public {
         vm.startPrank(contractOwner);
-        factoryERC20SB.buildERC20SB("testToken", "TEST", 18);
+        factoryERC20SB.buildERC20SB("testToken", "TEST", 18, address(contractOwner));
         vm.stopPrank();
         assertTrue(true);
     }

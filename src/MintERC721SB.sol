@@ -10,20 +10,39 @@ contract MintERC721SB is ERC721SB {
     
     string public baseURI;
     uint256 public currentTokenId;
+    address public owner;
+    address public holder;
+
     using Strings for uint256;
     
     constructor(
         string memory _name,
         string memory _symbol,
-        string memory _baseURI
+        string memory _baseURI,
+        address _owner
     ) ERC721SB(_name, _symbol) {
         baseURI = _baseURI;
+        owner = _owner;
     }
 
-    function mintTo(address recipient) public payable returns (uint256) {
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only owner can mint!");
+        _;
+    }
+
+    modifier onlyHolder() {
+        require(msg.sender == holder, "Only recipient can burn!");
+        _;
+    }
+
+    function mintTo(address recipient) public payable onlyOwner returns (uint256) {
         uint256 newTokenId = ++currentTokenId;
         _safeMint(recipient, newTokenId);
         return newTokenId;
+    }
+
+    function burn(uint256 id) public onlyHolder {
+        _burn(id);
     }
 
     function tokenURI(uint256 tokenId)
