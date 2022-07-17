@@ -26,20 +26,21 @@ contract MintERC721SBTest is Test {
         vm.startPrank(contractOwner);
         emit log_string("Recipient balance before mint:");
         emit log_uint(mintERC721SB.balanceOf(address(recipient)));
+        
         mintERC721SB.mintTo(address(recipient));
+        
         emit log_string("Recipient balance after mint:");
         emit log_uint(mintERC721SB.balanceOf(address(recipient)));
         vm.stopPrank();
+        
         assertEq(mintERC721SB.balanceOf(address(recipient)), 1);
     }
 
     function testFail_NotOwnerMint() public {
         vm.startPrank(factoryOwner);
-        emit log_string("Recipient balance before mint:");
-        emit log_uint(mintERC721SB.balanceOf(address(recipient)));
         mintERC721SB.mintTo(address(recipient));
-        emit log_string("Recipient balance after mint:");
-        emit log_uint(mintERC721SB.balanceOf(address(recipient)));
         vm.stopPrank();
     }
+
+
 }
