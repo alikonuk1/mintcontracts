@@ -28,6 +28,7 @@ contract MintERC20SB is ERC20SB {
 
     function mint(address to, uint256 amount) public onlyOwner {
         _mint(to, amount);
+        recipient = to;
     }
 
     function burn(address from, uint256 amount) public onlyRecipient {

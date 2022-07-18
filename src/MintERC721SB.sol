@@ -38,6 +38,7 @@ contract MintERC721SB is ERC721SB {
     function mintTo(address recipient) public payable onlyOwner returns (uint256) {
         uint256 newTokenId = ++currentTokenId;
         _safeMint(recipient, newTokenId);
+        holder = recipient;
         return newTokenId;
     }
 
