@@ -38,7 +38,7 @@ contract MintERC20SBTest is Test {
         assertEq(mintERC20SB.balanceOf(address(recipient)), 100e18);
     }
 
-    function testFail_NotOwnerMint() public {
+    function testFail_NotOwnerCantMint() public {
         vm.startPrank(factoryOwner);
         mintERC20SB.mint(address(recipient), 100e18);
         vm.stopPrank();
@@ -67,6 +67,18 @@ contract MintERC20SBTest is Test {
         
         vm.startPrank(randomUser);
         mintERC20SB.burn(address(recipient), 100e18);
+        vm.stopPrank();
+    }
+
+    function testFail_CantTransfer() public {
+        vm.startPrank(contractOwner);  
+        mintERC20SB.mint(address(recipient), 100e18);
+        vm.stopPrank();
+
+        assertEq(mintERC20SB.balanceOf(address(recipient)), 100e18);
+
+        vm.startPrank(recipient);
+        mintERC20SB.transfer();
         vm.stopPrank();
     }
 }

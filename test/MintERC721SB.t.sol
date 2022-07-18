@@ -69,4 +69,16 @@ contract MintERC721SBTest is Test {
         mintERC721SB.burn(1);
         vm.stopPrank();
     }
+
+    function testFail_CantTransfer() public {
+        vm.startPrank(contractOwner);  
+        mintERC721SB.mintTo(address(recipient));
+        vm.stopPrank();
+
+        assertEq(mintERC721SB.balanceOf(address(recipient)), 1);
+
+        vm.startPrank(recipient);
+        mintERC721SB.transferFrom();
+        vm.stopPrank();
+    }
 }
