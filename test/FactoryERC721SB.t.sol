@@ -19,11 +19,19 @@ contract FactoryERC721SBTest is Test {
         vm.startPrank(factoryOwner);
         factoryERC721SB = new FactoryERC721SB();
         vm.stopPrank();
+
+        //top up the contractOwner adress
+        contractOwner.call{value: 90 ether}("");
     }
 
     function test_DeployMintERC721SBContract() public {
         vm.startPrank(contractOwner);
-        factoryERC721SB.buildERC721SB("testToken", "TEST", "https://google.com", address(contractOwner));
+        factoryERC721SB.buildERC721SB{value: 10 ether}(
+            "testToken", 
+            "TEST", 
+            "https://google.com", 
+            address(contractOwner)
+            );
         vm.stopPrank();
         assertTrue(true);
     }

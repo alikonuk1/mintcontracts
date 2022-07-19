@@ -9,8 +9,8 @@ contract Deploy is Script {
     function run() external {
         vm.startBroadcast();
 
-        FactoryERC20SB factoryERC20SB = new FactoryERC20SB();
         FactoryERC721SB factoryERC721SB = new FactoryERC721SB();
+        FactoryERC20SB factoryERC20SB = new FactoryERC20SB();
 
         vm.stopBroadcast();
     }

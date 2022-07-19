@@ -19,11 +19,19 @@ contract FactoryERC20SBTest is Test {
         vm.startPrank(factoryOwner);
         factoryERC20SB = new FactoryERC20SB();
         vm.stopPrank();
+
+        //top up the contractOwner adress
+        contractOwner.call{value: 90 ether}("");
     }
 
     function test_DeployMintERC20SBContract() public {
         vm.startPrank(contractOwner);
-        factoryERC20SB.buildERC20SB("testToken", "TEST", 18, address(contractOwner));
+        factoryERC20SB.buildERC20SB{value: 10 ether}(
+            "testToken", 
+            "TEST", 
+            18, 
+            address(contractOwner)
+        );
         vm.stopPrank();
         assertTrue(true);
     }
