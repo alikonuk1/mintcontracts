@@ -9,7 +9,30 @@ contract FactoryERC20SB {
 
     event NewERC20SB(string, string, address);
 
-    uint256 public constant MINT_PRICE = 10 ether;
+    uint256 public MintPrice;
+    address public admin;
+
+    modifier onlyAdmin() {
+        require(msg.sender == admin, "Only Admin!");
+        _;
+    }
+
+    constructor(address _admin) {
+        admin = _admin;
+    }
+
+    function setMintPrice(uint256 mintPrice) external onlyAdmin {
+        MintPrice = mintPrice;
+    }
+
+    function getMintPrice() public view returns(uint256) {
+        return MintPrice;
+    }
+
+    function withdrawFunds() external onlyAdmin {
+        (bool sent, ) = admin.call{value: address(this).balance}("");
+        require(sent, "Failed to send Ether to admin");
+    }
 
     function buildERC20SB(
         string memory _name, 
@@ -17,7 +40,7 @@ contract FactoryERC20SB {
         uint8 _decimals,
         address _owner
         ) public payable {
-        if (msg.value != MINT_PRICE) {
+        if (msg.value != MintPrice) {
             revert MintPriceNotPaid();
         }
         MintERC20SB e2 = new MintERC20SB(_name, _symbol, _decimals, _owner);
