@@ -7,13 +7,18 @@ import {FactoryERC721SB} from "src/FactoryERC721SB.sol";
 
 contract Deploy is Script {
 
-    address public factoryOwner = msg.sender;
+    address public fOwner;
+
+    constructor(address _fOwner){
+        fOwner = _fOwner;
+    }
 
     function run() external {
+
         vm.startBroadcast();
 
-        FactoryERC721SB factoryERC721SB = new FactoryERC721SB(factoryOwner);
-        FactoryERC20SB factoryERC20SB = new FactoryERC20SB(factoryOwner);
+        FactoryERC721SB factoryERC721SB = new FactoryERC721SB(fOwner);
+        FactoryERC20SB factoryERC20SB = new FactoryERC20SB(fOwner);
 
         vm.stopBroadcast();
     }

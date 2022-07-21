@@ -25,7 +25,7 @@ contract FactoryERC20SB {
         MintPrice = mintPrice;
     }
 
-    function getMintPrice() public view returns(uint256) {
+    function getMintPrice() public view returns (uint256) {
         return MintPrice;
     }
 

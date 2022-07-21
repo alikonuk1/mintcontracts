@@ -31,7 +31,7 @@ contract FactoryERC721SBTest is Test {
 
         emit log_uint(factoryERC721SB.getMintPrice());
 
-        require(factoryERC721SB.getMintPrice() == 0.01 ether);
+        assertEq(factoryERC721SB.getMintPrice(), 0.01 ether);
     }
 
     function testFail_NonAdminCantSetMintPrice() public {
@@ -64,7 +64,7 @@ contract FactoryERC721SBTest is Test {
         factoryERC721SB.setMintPrice(60000000000000000);
         vm.stopPrank();
 
-        require(factoryERC721SB.getMintPrice() == 0.06 ether);
+        assertEq(factoryERC721SB.getMintPrice(), 0.06 ether);
 
         emit log_string("Mint price:");
         emit log_uint(factoryERC721SB.getMintPrice());
@@ -78,7 +78,7 @@ contract FactoryERC721SBTest is Test {
         );
         vm.stopPrank();
 
-        require(address(factoryERC721SB).balance == 0.06 ether);
+        assertEq(address(factoryERC721SB).balance, 0.06 ether);
 
         emit log_string("Factory contract balance:");
         emit log_uint(address(factoryERC721SB).balance);
@@ -87,8 +87,8 @@ contract FactoryERC721SBTest is Test {
         factoryERC721SB.withdrawFunds();
         vm.stopPrank();
 
-        require(address(factoryERC721SB).balance == 0);
-        require(address(factoryOwner).balance == 0.06 ether);
+        assertEq(address(factoryERC721SB).balance, 0);
+        assertEq(address(factoryOwner).balance, 0.06 ether);
 
         emit log_string("Factory contract balance:");
         emit log_uint(address(factoryERC721SB).balance);
@@ -101,7 +101,7 @@ contract FactoryERC721SBTest is Test {
         factoryERC721SB.setMintPrice(30000000000000000);
         vm.stopPrank();
 
-        require(factoryERC721SB.getMintPrice() == 0.03 ether);
+        assertEq(factoryERC721SB.getMintPrice(), 0.03 ether);
 
         emit log_string("Mint price:");
         emit log_uint(factoryERC721SB.getMintPrice());
@@ -115,7 +115,7 @@ contract FactoryERC721SBTest is Test {
         );
         vm.stopPrank();
 
-        require(address(factoryERC721SB).balance == 0.03 ether);
+        assertEq(address(factoryERC721SB).balance, 0.03 ether);
 
         emit log_string("Factory contract balance:");
         emit log_uint(address(factoryERC721SB).balance);
@@ -124,8 +124,8 @@ contract FactoryERC721SBTest is Test {
         factoryERC721SB.withdrawFunds();
         vm.stopPrank();
 
-        require(address(factoryERC721SB).balance == 0);
-        require(address(factoryOwner).balance == 0.09 ether);
+        assertEq(address(factoryERC721SB).balance, 0);
+        assertEq(address(factoryOwner).balance, 0.09 ether);
 
         emit log_string("Factory contract balance:");
         emit log_uint(address(factoryERC721SB).balance);
