@@ -7,7 +7,7 @@ source .env
 #    --verify
 
 forge create --rpc-url $MUMBAI_RPC_URL \
-    --constructor-args 0x2B68407d77B044237aE7f99369AA0347Ca44B129 \
+    --constructor-args <wallet_address> \
     --private-key $TEST_PRIVATE_KEY src/FactoryERC721SB.sol:FactoryERC721SB \
     --legacy \
     --etherscan-api-key $POLYGONSCAN_KEY \

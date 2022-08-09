@@ -19,7 +19,7 @@ deploy-local :; . script/deploy_local.sh
 deploy-goerli :; . script/deploy_goerli.sh
 deploy-mumbai :; . script/deploy_mumbai.sh
 deploy-polygon :; . script/deploy_polygon_mainnet.sh
-deploy-eth :; . script/deploy_eth_mainnet.sh
+deploy-eth :; . script/deploy_mainnet.sh
 verify :; . script/verify.sh
 verify-check :; . script/verify_check.sh
 
